@@ -1,16 +1,16 @@
 package fr.musclr.plugin.controller;
 
-import fr.musclr.plugin.entity.ExerciseLevel;
-import fr.musclr.plugin.entity.ExerciseType;
+import fr.musclr.plugin.entity.exercise.ExerciseLevel;
+import fr.musclr.plugin.entity.exercise.ExerciseType;
 
-public class WorkoutGenerationFormModel {
+public class WorkoutFormModel {
 
     private ExerciseLevel level;
     private int duration;
     private ExerciseType type;
     private boolean equipment;
     private boolean cardio;
-
+    private int pause;
 
     public ExerciseLevel getLevel() {
         return level;
@@ -50,5 +50,13 @@ public class WorkoutGenerationFormModel {
 
     public void setCardio(boolean cardio) {
         this.cardio = cardio;
+    }
+
+    public int getPause() {
+        return pause;
+    }
+
+    public void setPause(int pause) {
+        this.pause = pause;
     }
 }

@@ -13,7 +13,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
-        <start-class>fr.musclr.plugin.app.ApplicationWeb</start-class>
+        <start-class>fr.musclr.plugin.app.Application</start-class>
     </properties>
 
     <parent>

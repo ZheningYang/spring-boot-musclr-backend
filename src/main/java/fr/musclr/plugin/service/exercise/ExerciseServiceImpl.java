@@ -1,34 +1,32 @@
-package fr.musclr.plugin.service;
+package fr.musclr.plugin.service.exercise;
 
-import fr.musclr.plugin.controller.WorkoutGenerationFormModel;
-import fr.musclr.plugin.entity.Exercise;
-import fr.musclr.plugin.entity.ExerciseGroup;
-import fr.musclr.plugin.entity.ExerciseLevel;
-import fr.musclr.plugin.entity.ExerciseType;
-import fr.musclr.plugin.service.dao.ExerciseDao;
-import fr.musclr.plugin.service.repository.ExerciseRepository;
+import fr.musclr.plugin.entity.exercise.Exercise;
+import fr.musclr.plugin.entity.exercise.ExerciseGroup;
+import fr.musclr.plugin.entity.exercise.ExerciseLevel;
+import fr.musclr.plugin.entity.exercise.ExerciseType;
+import fr.musclr.plugin.service.internal.dao.ExerciseDao;
+import fr.musclr.plugin.service.internal.repository.ExerciseRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.PostConstruct;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+import java.util.stream.Collectors;
 
 @Service
 public class ExerciseServiceImpl implements ExerciseService {
-    private static final int TOTAL_WORKOUTS_NUM = 6;
 
     @Autowired
     private ExerciseRepository exerciseRepository;
 
     @Autowired
-    private ExerciseDao workoutDao;
+    private ExerciseDao exerciseDao;
 
     @PostConstruct
     public void initDatabase() {
-        workoutDao.dropCollectionIfExist();
-        Exercise[] workouts = new Exercise[]{
+        exerciseDao.dropCollectionIfExist();
+        Exercise[] exercises = new Exercise[]{
                 //Upper body - chest
                 new Exercise("Kneeling Push-up", ExerciseType.UPPER, ExerciseLevel.BEGINNER, false, false, ExerciseGroup.CHEST, "https://www.youtube.com/embed/wc-W05Gi9hU", "A scaled version of the normal push-up that works primarily the chest and triceps."),
                 new Exercise("Regular Push-up", ExerciseType.UPPER, ExerciseLevel.INTERMEDIATE, false, false, ExerciseGroup.CHEST, "https://www.youtube.com/embed/v9LABVJzv8A", "A classic calisthenic exercise that works the chest, triceps, shoulders, and core by raising and lowering the body towards the ground."),
@@ -117,30 +115,28 @@ public class ExerciseServiceImpl implements ExerciseService {
                 new Exercise("Back bow crossover", ExerciseType.TOTAL, ExerciseLevel.BEGINNER, false, false, ExerciseGroup.TOTAL_BODY, "https://www.youtube.com/embed/JBJmsE6xGsA", "While facing the floor, raise legs and arms moving both left and right touching down at the end of each motion.")
 
         };
-        workoutDao.insertAll(workouts);
+        exerciseDao.insertAll(exercises);
     }
 
     @Override
-    public List<Exercise> randomizedWorkout() {
-        List<Exercise> allWorkouts = exerciseRepository.findAll();
-        List<Exercise> randomWorkouts = new ArrayList<>();
-        List<Integer> temp = new ArrayList<>();
-        for (int i = 0; i < TOTAL_WORKOUTS_NUM; i++) {
-            Random rand = new Random();
-            int n = rand.nextInt(allWorkouts.size());
-            if (!temp.contains(n)) {
-                randomWorkouts.add(allWorkouts.get(n));
-                temp.add(n);
-            } else i--;
-        }
-        return randomWorkouts;
+    public List<Exercise> findAll() {
+        return exerciseRepository.findAll();
     }
 
     @Override
-    public List<Exercise> generateWorkouts(WorkoutGenerationFormModel formModel) {
-        List<Exercise> result = exerciseRepository.findAllByLevelAndTypeAndEquipment(
-                formModel.getLevel(), formModel.getType(), formModel.isEquipment());
+    public List<Exercise> findAllByLevelAndEquipment(ExerciseLevel level, boolean equipment) {
+        return exerciseRepository.findAllByLevelAndEquipment(level, equipment);
+    }
 
-        return result;
+    @Override
+    public List<Exercise> findAllByLevelAndTypeAndEquipment(ExerciseLevel level, ExerciseType type, boolean equipment) {
+        return exerciseRepository.findAllByLevelAndTypeAndEquipment(level, type, equipment);
+    }
+
+    @Override
+    public Exercise pickRandomExercise(List<Exercise> exercises, ExerciseGroup group) {
+        exercises = exercises.stream().filter(ex -> ex.getGroup().equals(group)).collect(Collectors.toList());
+        Random random = new Random();
+        return exercises.get(random.nextInt(exercises.size()));
     }
 }

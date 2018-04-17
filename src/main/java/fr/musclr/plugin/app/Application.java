@@ -6,12 +6,12 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.data.mongodb.repository.config.EnableMongoRepositories;
 
 @SpringBootApplication
-@EnableMongoRepositories("fr.musclr.plugin.service.repository")
+@EnableMongoRepositories("fr.musclr.plugin.service.internal.repository")
 @ComponentScan(basePackages = {"fr.musclr.plugin"})
-public class ApplicationWeb {
+public class Application {
 
     public static void main(String[] args) {
-        SpringApplication.run(ApplicationWeb.class, args);
+        SpringApplication.run(Application.class, args);
     }
 
 }
