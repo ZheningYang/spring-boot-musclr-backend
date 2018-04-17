@@ -1,6 +1,6 @@
 package fr.musclr.plugin.entity;
 
-public enum WorkoutType {
+public enum ExerciseType {
     UPPER,
     LOWER,
     CORE,

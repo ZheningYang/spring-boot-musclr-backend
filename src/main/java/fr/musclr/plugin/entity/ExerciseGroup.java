@@ -1,6 +1,6 @@
 package fr.musclr.plugin.entity;
 
-public enum WorkoutGroup {
+public enum ExerciseGroup {
     CHEST,
     SHOULDER_ARMS,
     GLUTES,

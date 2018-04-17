@@ -3,22 +3,22 @@ package fr.musclr.plugin.entity;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-@Document(collection = "workouts")
-public class Workout {
+@Document(collection = "exercises")
+public class Exercise {
     @Id
     private String id;
     private String name;
-    private WorkoutType type;
-    private WorkoutLevel level;
+    private ExerciseType type;
+    private ExerciseLevel level;
     private boolean equipment;
     private boolean cardio;
-    private WorkoutGroup group;
+    private ExerciseGroup group;
     private String link;
     private String description;
 
     @Override
     public String toString() {
-        return "Workout{" +
+        return "Exercise{" +
                 "id='" + id + '\'' +
                 ", name='" + name + '\'' +
                 ", type=" + type +
@@ -31,7 +31,7 @@ public class Workout {
                 '}';
     }
 
-    public Workout(String name, WorkoutType type, WorkoutLevel level, boolean equipment, boolean cardio, WorkoutGroup group, String link, String description) {
+    public Exercise(String name, ExerciseType type, ExerciseLevel level, boolean equipment, boolean cardio, ExerciseGroup group, String link, String description) {
         this.name = name;
         this.type = type;
         this.level = level;
@@ -58,19 +58,19 @@ public class Workout {
         this.name = name;
     }
 
-    public WorkoutType getType() {
+    public ExerciseType getType() {
         return type;
     }
 
-    public void setType(WorkoutType type) {
+    public void setType(ExerciseType type) {
         this.type = type;
     }
 
-    public WorkoutLevel getLevel() {
+    public ExerciseLevel getLevel() {
         return level;
     }
 
-    public void setLevel(WorkoutLevel level) {
+    public void setLevel(ExerciseLevel level) {
         this.level = level;
     }
 
@@ -90,11 +90,11 @@ public class Workout {
         this.cardio = cardio;
     }
 
-    public WorkoutGroup getGroup() {
+    public ExerciseGroup getGroup() {
         return group;
     }
 
-    public void setGroup(WorkoutGroup group) {
+    public void setGroup(ExerciseGroup group) {
         this.group = group;
     }
 

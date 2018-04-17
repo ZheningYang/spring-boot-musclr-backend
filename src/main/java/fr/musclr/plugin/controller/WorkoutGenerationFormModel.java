@@ -1,23 +1,22 @@
 package fr.musclr.plugin.controller;
 
-import fr.musclr.plugin.entity.WorkoutGroup;
-import fr.musclr.plugin.entity.WorkoutLevel;
-import fr.musclr.plugin.entity.WorkoutType;
+import fr.musclr.plugin.entity.ExerciseLevel;
+import fr.musclr.plugin.entity.ExerciseType;
 
 public class WorkoutGenerationFormModel {
 
-    private WorkoutLevel level;
+    private ExerciseLevel level;
     private int duration;
-    private WorkoutType type;
+    private ExerciseType type;
     private boolean equipment;
     private boolean cardio;
 
 
-    public WorkoutLevel getLevel() {
+    public ExerciseLevel getLevel() {
         return level;
     }
 
-    public void setLevel(WorkoutLevel level) {
+    public void setLevel(ExerciseLevel level) {
         this.level = level;
     }
 
@@ -29,11 +28,11 @@ public class WorkoutGenerationFormModel {
         this.duration = duration;
     }
 
-    public WorkoutType getType() {
+    public ExerciseType getType() {
         return type;
     }
 
-    public void setType(WorkoutType type) {
+    public void setType(ExerciseType type) {
         this.type = type;
     }
 

@@ -1,7 +1,6 @@
 package fr.musclr.plugin.service.dao;
 
-import fr.musclr.plugin.entity.Workout;
-import fr.musclr.plugin.service.dao.WorkoutDao;
+import fr.musclr.plugin.entity.Exercise;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoOperations;
 import org.springframework.stereotype.Repository;
@@ -9,7 +8,7 @@ import org.springframework.stereotype.Repository;
 import java.util.Arrays;
 
 @Repository
-public class WorkoutDaoImpl implements WorkoutDao {
+public class ExerciseDaoImpl implements ExerciseDao {
 
     private static final String WORKOUT_COLLECTION = "workouts";
 
@@ -26,7 +25,7 @@ public class WorkoutDaoImpl implements WorkoutDao {
     }
 
     @Override
-    public void insertAll(Workout[] workouts) {
+    public void insertAll(Exercise[] workouts) {
         mongoOps.insert(Arrays.asList(workouts), WORKOUT_COLLECTION);
 
     }
