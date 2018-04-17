@@ -14,10 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.PostConstruct;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
@@ -68,18 +65,17 @@ public class WorkoutServiceImpl implements WorkoutService {
     public Workout generateWorkout(ExerciseLevel level, int duration, ExerciseType type, boolean equipment, boolean cardio, int pause) {
 
         List<Exercise> filterExercises;
+
         if (type.equals(ExerciseType.TOTAL)) {
             filterExercises = exerciseService.findAllByLevelAndEquipment(level, equipment);
         } else {
             filterExercises = exerciseService.findAllByLevelAndTypeAndEquipment(level, type, equipment);
         }
 
-
         if (cardio) {
-            filterExercises =  filterExercises.stream().filter(Exercise::isCardio).collect(Collectors.toList());
-
+            filterExercises = filterExercises.stream().filter(Exercise::isCardio).collect(Collectors.toList());
         } else {
-
+            filterExercises = filterExercises.stream().filter(exercise -> !exercise.isCardio()).collect(Collectors.toList());
         }
 
         int repetition;
@@ -96,12 +92,12 @@ public class WorkoutServiceImpl implements WorkoutService {
                 break;
         }
 
-
         List<Routine> routines = new ArrayList<>();
         for (int i = 0; i < duration; i += 10) {
             routines.addAll(generateRoutines(filterExercises, type, repetition));
         }
         return workoutRepository.insert(new Workout(routines, pause));
+
     }
 
     private List<Routine> generateRoutines(List<Exercise> exercises, ExerciseType type, int repetition) {
