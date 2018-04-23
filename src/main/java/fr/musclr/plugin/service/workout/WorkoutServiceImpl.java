@@ -1,6 +1,5 @@
 package fr.musclr.plugin.service.workout;
 
-import fr.musclr.plugin.controller.WorkoutFormModel;
 import fr.musclr.plugin.entity.exercise.Exercise;
 import fr.musclr.plugin.entity.exercise.ExerciseGroup;
 import fr.musclr.plugin.entity.exercise.ExerciseLevel;
@@ -114,17 +113,26 @@ public class WorkoutServiceImpl implements WorkoutService {
                         new Routine(exerciseService.pickRandomExercise(exercises, ExerciseGroup.CORE), repetition * 2));
                 break;
             case TOTAL:
-                routines = Arrays.asList(new Routine(exerciseService.pickRandomExercise(exercises, ExerciseGroup.CHEST), repetition),
-                        new Routine(exerciseService.pickRandomExercise(exercises, ExerciseGroup.SHOULDER_ARMS), repetition),
-                        new Routine(exerciseService.pickRandomExercise(exercises, ExerciseGroup.CORE), repetition),
-                        new Routine(exerciseService.pickRandomExercise(exercises, ExerciseGroup.GLUTES), repetition),
-                        new Routine(exerciseService.pickRandomExercise(exercises, ExerciseGroup.QUADS), repetition),
-                        new Routine(exerciseService.pickRandomExercise(exercises, ExerciseGroup.TOTAL_BODY), repetition));
+                routines = Arrays.asList(
+                        createRoutine(exerciseService.pickRandomExercise(exercises, ExerciseGroup.CHEST), repetition),
+                        createRoutine(exerciseService.pickRandomExercise(exercises, ExerciseGroup.SHOULDER_ARMS), repetition),
+                        createRoutine(exerciseService.pickRandomExercise(exercises, ExerciseGroup.CORE), repetition),
+                        createRoutine(exerciseService.pickRandomExercise(exercises, ExerciseGroup.GLUTES), repetition),
+                        createRoutine(exerciseService.pickRandomExercise(exercises, ExerciseGroup.QUADS), repetition),
+                        createRoutine(exerciseService.pickRandomExercise(exercises, ExerciseGroup.TOTAL_BODY), repetition)
+                );
                 break;
             default:
                 break;
         }
-        return routines;
+        return routines.stream().filter(Objects::nonNull).collect(Collectors.toList());
     }
 
+    private Routine createRoutine(Exercise exercise, int rep) {
+        if (exercise != null) {
+            return new Routine(exercise, rep);
+        } else {
+            return null;
+        }
+    }
 }

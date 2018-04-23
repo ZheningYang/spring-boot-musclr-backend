@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.PostConstruct;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 import java.util.stream.Collectors;
@@ -136,7 +137,11 @@ public class ExerciseServiceImpl implements ExerciseService {
     @Override
     public Exercise pickRandomExercise(List<Exercise> exercises, ExerciseGroup group) {
         exercises = exercises.stream().filter(ex -> ex.getGroup().equals(group)).collect(Collectors.toList());
-        Random random = new Random();
-        return exercises.get(random.nextInt(exercises.size()));
+        if(exercises.isEmpty()){
+            return null;
+        }else {
+            Random random = new Random();
+            return exercises.get(random.nextInt(exercises.size()));
+        }
     }
 }
