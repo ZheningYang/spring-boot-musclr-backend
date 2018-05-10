@@ -10,13 +10,16 @@ public class Workout {
     @Id
     private String id;
 
+    private String name;
+
     private List<Routine> routines;
 
     private Integer pause;
     
     private WorkoutType type;
 
-    public Workout(List<Routine> routines, Integer pause, WorkoutType type) {
+    public Workout(String name, List<Routine> routines, Integer pause, WorkoutType type) {
+        this.name = name;
         this.routines = routines;
         this.pause = pause;
         this.type = type;
@@ -24,8 +27,9 @@ public class Workout {
 
     @Override
     public String toString() {
-        return "workout{" +
+        return "Workout{" +
                 "id='" + id + '\'' +
+                ", name='" + name + '\'' +
                 ", routines=" + routines +
                 ", pause=" + pause +
                 ", type=" + type +
@@ -63,6 +67,12 @@ public class Workout {
 	public void setType(WorkoutType type) {
 		this.type = type;
 	}
-    
 
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
 }

@@ -37,6 +37,10 @@ public class WorkoutServiceImpl implements WorkoutService {
     @PostConstruct
     public void initDatabase() {
         workoutDao.dropCollectionIfExist();
+
+        for (int i = 0; i < 80; i++) {
+            randomizedWorkout();
+        }
     }
 
     @Override
@@ -59,11 +63,11 @@ public class WorkoutServiceImpl implements WorkoutService {
 
         int randomPause = random.nextInt(MAX_PAUSE);
         WorkoutType group = WorkoutType.randomWorkoutType();
-        return workoutRepository.insert(new Workout(randomRoutines, randomPause, group));
+        return workoutRepository.insert(new Workout(UUID.randomUUID().toString(), randomRoutines, randomPause, group));
     }
 
     @Override
-    public Workout generateWorkout(ExerciseLevel level, int duration, ExerciseType type, boolean equipment, boolean cardio, int pause, WorkoutType typeWorkout) {
+    public Workout generateWorkout(String name, ExerciseLevel level, int duration, ExerciseType type, boolean equipment, boolean cardio, WorkoutType workoutType) {
 
         List<Exercise> filterExercises;
 
@@ -80,16 +84,22 @@ public class WorkoutServiceImpl implements WorkoutService {
         }
 
         int repetition;
+        int pause;
         switch (level) {
             case BEGINNER:
                 repetition = MAX_REPETITIONS / 3;
+                pause = MAX_PAUSE;
                 break;
+
+            case ADVANCED:
+                repetition = MAX_REPETITIONS;
+                pause = MAX_PAUSE / 3;
+                break;
+
             case INTERMEDIATE:
             default:
                 repetition = MAX_REPETITIONS / 3 * 2;
-                break;
-            case ADVANCED:
-                repetition = MAX_REPETITIONS;
+                pause = MAX_PAUSE / 2;
                 break;
         }
 
@@ -97,7 +107,7 @@ public class WorkoutServiceImpl implements WorkoutService {
         for (int i = 0; i < duration; i += 10) {
             routines.addAll(generateRoutines(filterExercises, type, repetition));
         }
-        return workoutRepository.insert(new Workout(routines, pause, typeWorkout));
+        return workoutRepository.insert(new Workout(name, routines, pause, workoutType));
 
     }
 
@@ -138,8 +148,8 @@ public class WorkoutServiceImpl implements WorkoutService {
         }
     }
 
-	@Override
-	public List<Workout> getAll() {
-		return workoutRepository.findAll();
-	}
+    @Override
+    public List<Workout> getAll() {
+        return workoutRepository.findAll();
+    }
 }
