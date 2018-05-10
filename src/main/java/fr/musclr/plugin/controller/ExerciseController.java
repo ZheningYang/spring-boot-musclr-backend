@@ -2,6 +2,8 @@ package fr.musclr.plugin.controller;
 
 import fr.musclr.plugin.entity.exercise.Exercise;
 import fr.musclr.plugin.entity.exercise.ExerciseGroup;
+import fr.musclr.plugin.entity.exercise.ExerciseLevel;
+import fr.musclr.plugin.entity.exercise.ExerciseType;
 import fr.musclr.plugin.entity.workout.Workout;
 import fr.musclr.plugin.service.exercise.ExerciseService;
 import fr.musclr.plugin.service.workout.WorkoutService;
@@ -28,5 +30,15 @@ public class ExerciseController {
     @RequestMapping(value = "/groups", method = RequestMethod.GET)
     public List<ExerciseGroup> getAllExerciseGroup() {
         return exerciseService.getAllExerciseGroupList();
+    }
+
+    @RequestMapping(value = "/levels", method = RequestMethod.GET)
+    public List<ExerciseLevel> getAllExerciseLevel() {
+        return exerciseService.getAllExerciseLevelList();
+    }
+
+    @RequestMapping(value = "/types", method = RequestMethod.GET)
+    public List<ExerciseType> getAllExerciseType() {
+        return exerciseService.getAllExerciseTypeList();
     }
 }

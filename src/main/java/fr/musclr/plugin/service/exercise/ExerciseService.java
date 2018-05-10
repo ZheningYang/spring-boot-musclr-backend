@@ -20,4 +20,8 @@ public interface ExerciseService {
 
     List<ExerciseGroup> getAllExerciseGroupList();
 
+    List<ExerciseLevel> getAllExerciseLevelList();
+
+    List<ExerciseType> getAllExerciseTypeList();
+
 }

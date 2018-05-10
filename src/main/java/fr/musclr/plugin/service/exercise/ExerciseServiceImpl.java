@@ -142,9 +142,9 @@ public class ExerciseServiceImpl implements ExerciseService {
     @Override
     public Exercise pickRandomExercise(List<Exercise> exercises, ExerciseGroup group) {
         exercises = exercises.stream().filter(ex -> ex.getGroup().equals(group)).collect(Collectors.toList());
-        if(exercises.isEmpty()){
+        if (exercises.isEmpty()) {
             return null;
-        }else {
+        } else {
             Random random = new Random();
             return exercises.get(random.nextInt(exercises.size()));
         }
@@ -152,6 +152,16 @@ public class ExerciseServiceImpl implements ExerciseService {
 
     @Override
     public List<ExerciseGroup> getAllExerciseGroupList() {
-        return Arrays.asList( ExerciseGroup.values());
+        return Arrays.asList(ExerciseGroup.values());
+    }
+
+    @Override
+    public List<ExerciseLevel> getAllExerciseLevelList() {
+        return Arrays.asList(ExerciseLevel.values());
+    }
+
+    @Override
+    public List<ExerciseType> getAllExerciseTypeList() {
+        return Arrays.asList(ExerciseType.values());
     }
 }
