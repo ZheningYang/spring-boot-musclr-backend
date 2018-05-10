@@ -2,6 +2,9 @@ package fr.musclr.plugin.controller;
 
 import fr.musclr.plugin.entity.workout.Workout;
 import fr.musclr.plugin.service.workout.WorkoutService;
+
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -9,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
+@RequestMapping("/workout/")
 public class WorkoutController {
 
     @Autowired
@@ -23,6 +27,11 @@ public class WorkoutController {
     public Workout generate(@RequestBody WorkoutFormModel formModel) {
         return workoutService.generateWorkout(
                 formModel.getLevel(), formModel.getDuration(), formModel.getType(),
-                formModel.isEquipment(), formModel.isCardio(), formModel.getPause());
+                formModel.isEquipment(), formModel.isCardio(), formModel.getPause(), null);
+    }
+    
+    @RequestMapping(value = "/all", method = RequestMethod.GET)
+    public List<Workout> getAll() {
+        return workoutService.getAll();
     }
 }

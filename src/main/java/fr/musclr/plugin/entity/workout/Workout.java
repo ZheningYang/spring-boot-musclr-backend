@@ -13,10 +13,13 @@ public class Workout {
     private List<Routine> routines;
 
     private Integer pause;
+    
+    private WorkoutType type;
 
-    public Workout(List<Routine> routines, Integer pause) {
+    public Workout(List<Routine> routines, Integer pause, WorkoutType type) {
         this.routines = routines;
         this.pause = pause;
+        this.type = type;
     }
 
     @Override
@@ -25,6 +28,7 @@ public class Workout {
                 "id='" + id + '\'' +
                 ", routines=" + routines +
                 ", pause=" + pause +
+                ", type=" + type +
                 '}';
     }
 
@@ -51,5 +55,14 @@ public class Workout {
     public void setPause(Integer pause) {
         this.pause = pause;
     }
+
+	public WorkoutType getType() {
+		return type;
+	}
+
+	public void setType(WorkoutType type) {
+		this.type = type;
+	}
+    
 
 }

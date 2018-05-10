@@ -6,6 +6,7 @@ import fr.musclr.plugin.entity.exercise.ExerciseLevel;
 import fr.musclr.plugin.entity.exercise.ExerciseType;
 import fr.musclr.plugin.entity.workout.Routine;
 import fr.musclr.plugin.entity.workout.Workout;
+import fr.musclr.plugin.entity.workout.WorkoutType;
 import fr.musclr.plugin.service.exercise.ExerciseService;
 import fr.musclr.plugin.service.internal.dao.WorkoutDao;
 import fr.musclr.plugin.service.internal.repository.WorkoutRepository;
@@ -57,11 +58,12 @@ public class WorkoutServiceImpl implements WorkoutService {
         }
 
         int randomPause = random.nextInt(MAX_PAUSE);
-        return workoutRepository.insert(new Workout(randomRoutines, randomPause));
+        WorkoutType group = WorkoutType.randomWorkoutType();
+        return workoutRepository.insert(new Workout(randomRoutines, randomPause, group));
     }
 
     @Override
-    public Workout generateWorkout(ExerciseLevel level, int duration, ExerciseType type, boolean equipment, boolean cardio, int pause) {
+    public Workout generateWorkout(ExerciseLevel level, int duration, ExerciseType type, boolean equipment, boolean cardio, int pause, WorkoutType typeWorkout) {
 
         List<Exercise> filterExercises;
 
@@ -95,7 +97,7 @@ public class WorkoutServiceImpl implements WorkoutService {
         for (int i = 0; i < duration; i += 10) {
             routines.addAll(generateRoutines(filterExercises, type, repetition));
         }
-        return workoutRepository.insert(new Workout(routines, pause));
+        return workoutRepository.insert(new Workout(routines, pause, typeWorkout));
 
     }
 
@@ -135,4 +137,9 @@ public class WorkoutServiceImpl implements WorkoutService {
             return null;
         }
     }
+
+	@Override
+	public List<Workout> getAll() {
+		return workoutRepository.findAll();
+	}
 }
