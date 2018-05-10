@@ -10,7 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.PostConstruct;
-import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 import java.util.stream.Collectors;
@@ -125,6 +125,11 @@ public class ExerciseServiceImpl implements ExerciseService {
     }
 
     @Override
+    public List<Exercise> findAllByGroup(ExerciseGroup group) {
+        return exerciseRepository.findAllByGroup(group);
+    }
+
+    @Override
     public List<Exercise> findAllByLevelAndEquipment(ExerciseLevel level, boolean equipment) {
         return exerciseRepository.findAllByLevelAndEquipment(level, equipment);
     }
@@ -143,5 +148,10 @@ public class ExerciseServiceImpl implements ExerciseService {
             Random random = new Random();
             return exercises.get(random.nextInt(exercises.size()));
         }
+    }
+
+    @Override
+    public List<ExerciseGroup> getAllExerciseGroupList() {
+        return Arrays.asList( ExerciseGroup.values());
     }
 }

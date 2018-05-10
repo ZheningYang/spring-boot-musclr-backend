@@ -7,4 +7,5 @@ public enum ExerciseGroup {
     QUADS,
     CORE,
     TOTAL_BODY
+
 }

@@ -10,10 +10,14 @@ import java.util.List;
 public interface ExerciseService {
     List<Exercise> findAll();
 
+    List<Exercise> findAllByGroup(ExerciseGroup group);
+
     List<Exercise> findAllByLevelAndEquipment(ExerciseLevel level, boolean equipment);
 
     List<Exercise> findAllByLevelAndTypeAndEquipment(ExerciseLevel level, ExerciseType type, boolean equipment);
 
     Exercise pickRandomExercise(List<Exercise> exercises, ExerciseGroup group);
+
+    List<ExerciseGroup> getAllExerciseGroupList();
 
 }
