@@ -37,10 +37,20 @@ public class WorkoutController {
         return workoutService.getAll();
     }
     
+    @RequestMapping(value = "/types", method = RequestMethod.GET)
+    public List<WorkoutType> getAllWorkoutType() {
+    	return workoutService.getAllWorkoutTypeList();
+    }
+    
     @RequestMapping(value = "/types/{type}", method = RequestMethod.GET)
     public List<Workout> getWorkoutsByType(@PathVariable("type") String type) {
+    	if(type == "") {
+    		return workoutService.getAll();
+    	}
     	WorkoutType workoutType = WorkoutType.valueOf(type.toUpperCase());
 		return workoutService.getAllByType(workoutType);
     	
     }
+    
+    
 }

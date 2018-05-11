@@ -17,5 +17,7 @@ public interface WorkoutService {
     List<Workout> getAll();
     
     List<Workout> getAllByType (WorkoutType type);
+    
+    List<WorkoutType> getAllWorkoutTypeList();
 
 }
