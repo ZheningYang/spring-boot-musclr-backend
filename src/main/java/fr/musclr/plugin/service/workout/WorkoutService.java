@@ -15,5 +15,7 @@ public interface WorkoutService {
     Workout generateWorkout(String name, ExerciseLevel level, int duration, ExerciseType type, boolean equipment, boolean cardio, WorkoutType workoutType);
     
     List<Workout> getAll();
+    
+    List<Workout> getAllByType (WorkoutType type);
 
 }

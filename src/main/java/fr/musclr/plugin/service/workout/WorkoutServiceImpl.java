@@ -152,4 +152,10 @@ public class WorkoutServiceImpl implements WorkoutService {
     public List<Workout> getAll() {
         return workoutRepository.findAll();
     }
+
+	@Override
+	public List<Workout> getAllByType(WorkoutType type) {
+		return workoutRepository.findAllByType(type);
+	}
+    
 }
