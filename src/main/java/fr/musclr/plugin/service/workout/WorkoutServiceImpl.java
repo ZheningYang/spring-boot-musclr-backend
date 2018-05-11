@@ -85,18 +85,18 @@ public class WorkoutServiceImpl implements WorkoutService {
 
         int repetition;
         int pause;
-        switch (level) {
-            case BEGINNER:
+        switch (workoutType) {
+            case BULKING:
                 repetition = MAX_REPETITIONS / 3;
                 pause = MAX_PAUSE;
                 break;
 
-            case ADVANCED:
+            case FITNESS:
                 repetition = MAX_REPETITIONS;
                 pause = MAX_PAUSE / 3;
                 break;
 
-            case INTERMEDIATE:
+            case CUTTING:
             default:
                 repetition = MAX_REPETITIONS / 3 * 2;
                 pause = MAX_PAUSE / 2;
