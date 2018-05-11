@@ -7,6 +7,7 @@ import fr.musclr.plugin.service.workout.WorkoutService;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -35,9 +36,21 @@ public class WorkoutController {
     public List<Workout> getAll() {
         return workoutService.getAll();
     }
-
+    
     @RequestMapping(value = "/types", method = RequestMethod.GET)
-    public List<WorkoutType> getAllWorkoutTypes() {
-        return workoutService.getAllWorkoutTypeList();
+    public List<WorkoutType> getAllWorkoutType() {
+    	return workoutService.getAllWorkoutTypeList();
     }
+    
+    @RequestMapping(value = "/types/{type}", method = RequestMethod.GET)
+    public List<Workout> getWorkoutsByType(@PathVariable("type") String type) {
+    	if(type == "") {
+    		return workoutService.getAll();
+    	}
+    	WorkoutType workoutType = WorkoutType.valueOf(type.toUpperCase());
+		return workoutService.getAllByType(workoutType);
+    	
+    }
+    
+    
 }
