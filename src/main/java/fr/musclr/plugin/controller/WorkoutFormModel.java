@@ -12,7 +12,6 @@ public class WorkoutFormModel {
     private int duration;
     private ExerciseType type;
     private boolean equipment;
-    private boolean cardio;
 
     public String getName() {
         return name;
@@ -52,14 +51,6 @@ public class WorkoutFormModel {
 
     public void setEquipment(boolean equipment) {
         this.equipment = equipment;
-    }
-
-    public boolean isCardio() {
-        return cardio;
-    }
-
-    public void setCardio(boolean cardio) {
-        this.cardio = cardio;
     }
 
     public WorkoutType getWorkoutType() {

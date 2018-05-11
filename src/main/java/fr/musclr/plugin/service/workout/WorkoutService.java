@@ -12,8 +12,10 @@ public interface WorkoutService {
 
     Workout randomizedWorkout();
 
-    Workout generateWorkout(String name, ExerciseLevel level, int duration, ExerciseType type, boolean equipment, boolean cardio, WorkoutType workoutType);
+    Workout generateWorkout(String name, ExerciseLevel level, int duration, ExerciseType type, boolean equipment, WorkoutType workoutType);
     
     List<Workout> getAll();
+
+    List<WorkoutType> getAllWorkoutTypeList();
 
 }

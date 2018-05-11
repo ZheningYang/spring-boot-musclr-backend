@@ -1,6 +1,7 @@
 package fr.musclr.plugin.controller;
 
 import fr.musclr.plugin.entity.workout.Workout;
+import fr.musclr.plugin.entity.workout.WorkoutType;
 import fr.musclr.plugin.service.workout.WorkoutService;
 
 import java.util.List;
@@ -27,11 +28,16 @@ public class WorkoutController {
     public Workout generate(@RequestBody WorkoutFormModel formModel) {
         return workoutService.generateWorkout(formModel.getName(),
                 formModel.getLevel(), formModel.getDuration(), formModel.getType(),
-                formModel.isEquipment(), formModel.isCardio(), formModel.getWorkoutType());
+                formModel.isEquipment(), formModel.getWorkoutType());
     }
-    
+
     @RequestMapping(value = "/all", method = RequestMethod.GET)
     public List<Workout> getAll() {
         return workoutService.getAll();
+    }
+
+    @RequestMapping(value = "/types", method = RequestMethod.GET)
+    public List<WorkoutType> getAllWorkoutTypes() {
+        return workoutService.getAllWorkoutTypeList();
     }
 }

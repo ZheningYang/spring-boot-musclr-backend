@@ -67,7 +67,7 @@ public class WorkoutServiceImpl implements WorkoutService {
     }
 
     @Override
-    public Workout generateWorkout(String name, ExerciseLevel level, int duration, ExerciseType type, boolean equipment, boolean cardio, WorkoutType workoutType) {
+    public Workout generateWorkout(String name, ExerciseLevel level, int duration, ExerciseType type, boolean equipment, WorkoutType workoutType) {
 
         List<Exercise> filterExercises;
 
@@ -77,23 +77,19 @@ public class WorkoutServiceImpl implements WorkoutService {
             filterExercises = exerciseService.findAllByLevelAndTypeAndEquipment(level, type, equipment);
         }
 
-        if (cardio) {
-            filterExercises = filterExercises.stream().filter(Exercise::isCardio).collect(Collectors.toList());
-        } else {
-            filterExercises = filterExercises.stream().filter(exercise -> !exercise.isCardio()).collect(Collectors.toList());
-        }
-
         int repetition;
         int pause;
         switch (workoutType) {
             case BULKING:
                 repetition = MAX_REPETITIONS / 3;
                 pause = MAX_PAUSE;
+                filterExercises = filterExercises.stream().filter(exercise -> !exercise.isCardio()).collect(Collectors.toList());
                 break;
 
             case FITNESS:
                 repetition = MAX_REPETITIONS;
                 pause = MAX_PAUSE / 3;
+                filterExercises = filterExercises.stream().filter(Exercise::isCardio).collect(Collectors.toList());
                 break;
 
             case CUTTING:
@@ -151,5 +147,10 @@ public class WorkoutServiceImpl implements WorkoutService {
     @Override
     public List<Workout> getAll() {
         return workoutRepository.findAll();
+    }
+
+    @Override
+    public List<WorkoutType> getAllWorkoutTypeList() {
+        return Arrays.asList(WorkoutType.values());
     }
 }
