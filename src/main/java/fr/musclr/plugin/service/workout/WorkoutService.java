@@ -20,6 +20,4 @@ public interface WorkoutService {
     
     List<WorkoutType> getAllWorkoutTypeList();
 
-    List<WorkoutType> getAllWorkoutTypeList();
-
 }
