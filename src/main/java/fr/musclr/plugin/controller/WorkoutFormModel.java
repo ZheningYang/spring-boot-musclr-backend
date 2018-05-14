@@ -6,12 +6,21 @@ import fr.musclr.plugin.entity.workout.WorkoutType;
 
 public class WorkoutFormModel {
 
+    private String creatorId;
     private String name;
     private WorkoutType workoutType;
     private ExerciseLevel level;
     private int duration;
     private ExerciseType type;
     private boolean equipment;
+
+    public String getCreatorId() {
+        return creatorId;
+    }
+
+    public void setCreatorId(String creatorId) {
+        this.creatorId = creatorId;
+    }
 
     public String getName() {
         return name;

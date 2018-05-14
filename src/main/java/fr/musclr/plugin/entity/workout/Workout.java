@@ -1,8 +1,10 @@
 package fr.musclr.plugin.entity.workout;
 
+import fr.musclr.plugin.entity.rating.Rating;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import java.util.Date;
 import java.util.List;
 
 @Document(collection = "workouts")
@@ -18,11 +20,19 @@ public class Workout {
     
     private WorkoutType type;
 
-    public Workout(String name, List<Routine> routines, Integer pause, WorkoutType type) {
+    private List<Rating> ratings;
+
+    private String createdBy;
+
+    private Date createdOn;
+
+    public Workout(String name, List<Routine> routines, Integer pause, WorkoutType type, String createdBy, Date createdOn) {
         this.name = name;
         this.routines = routines;
         this.pause = pause;
         this.type = type;
+        this.createdBy = createdBy;
+        this.createdOn = createdOn;
     }
 
     @Override
@@ -33,6 +43,9 @@ public class Workout {
                 ", routines=" + routines +
                 ", pause=" + pause +
                 ", type=" + type +
+                ", ratings=" + ratings +
+                ", createdBy='" + createdBy + '\'' +
+                ", createdOn=" + createdOn +
                 '}';
     }
 
@@ -74,5 +87,29 @@ public class Workout {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public List<Rating> getRatings() {
+        return ratings;
+    }
+
+    public void setRatings(List<Rating> ratings) {
+        this.ratings = ratings;
+    }
+
+    public String getCreatedBy() {
+        return createdBy;
+    }
+
+    public void setCreatedBy(String createdBy) {
+        this.createdBy = createdBy;
+    }
+
+    public Date getCreatedOn() {
+        return createdOn;
+    }
+
+    public void setCreatedOn(Date createdOn) {
+        this.createdOn = createdOn;
     }
 }
