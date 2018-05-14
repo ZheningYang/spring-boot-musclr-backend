@@ -32,10 +32,10 @@ public class WorkoutController {
                 formModel.isEquipment(), formModel.getWorkoutType());
     }
 
-    @RequestMapping(value = "/all", method = RequestMethod.GET)
-    public List<Workout> getAll() {
-        return workoutService.getAll();
-    }
+//    @RequestMapping(value = "/types/all", method = RequestMethod.GET)
+//    public List<Workout> getAll() {
+//        return workoutService.getAll();
+//    }
 
     @RequestMapping(value = "/types", method = RequestMethod.GET)
     public List<WorkoutType> getAllWorkoutType() {
@@ -47,9 +47,9 @@ public class WorkoutController {
         /*
         if type == "", the url will be localhost:8080/types/, thus it will be match getAllWorkoutType() below.
         **/
-//    	if(type == "") {
-//    		return workoutService.getAll();
-//    	}
+    	if(type.equals("all")) {
+    		return workoutService.getAll();
+    	}
         
         WorkoutType workoutType = WorkoutType.valueOf(type.toUpperCase());
         return workoutService.getAllByType(workoutType);
