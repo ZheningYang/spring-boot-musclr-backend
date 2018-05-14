@@ -27,7 +27,7 @@ public class WorkoutController {
 
     @RequestMapping(value = "/generate", method = RequestMethod.POST)
     public Workout generate(@RequestBody WorkoutFormModel formModel) {
-        return workoutService.generateWorkout(formModel.getName(),
+        return workoutService.generateWorkout(formModel.getCreatorId(), formModel.getName(),
                 formModel.getLevel(), formModel.getDuration(), formModel.getType(),
                 formModel.isEquipment(), formModel.getWorkoutType());
     }
@@ -50,11 +50,13 @@ public class WorkoutController {
 //    	if(type == "") {
 //    		return workoutService.getAll();
 //    	}
-        
+
         WorkoutType workoutType = WorkoutType.valueOf(type.toUpperCase());
         return workoutService.getAllByType(workoutType);
 
     }
+
+
 
 
 }

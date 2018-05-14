@@ -63,11 +63,11 @@ public class WorkoutServiceImpl implements WorkoutService {
 
         int randomPause = random.nextInt(MAX_PAUSE);
         WorkoutType group = WorkoutType.randomWorkoutType();
-        return workoutRepository.insert(new Workout(UUID.randomUUID().toString(), randomRoutines, randomPause, group));
+        return workoutRepository.insert(new Workout(UUID.randomUUID().toString(), randomRoutines, randomPause, group, UUID.randomUUID().toString(), new Date()));
     }
 
     @Override
-    public Workout generateWorkout(String name, ExerciseLevel level, int duration, ExerciseType type, boolean equipment, WorkoutType workoutType) {
+    public Workout generateWorkout(String creatorId, String name, ExerciseLevel level, int duration, ExerciseType type, boolean equipment, WorkoutType workoutType) {
 
         List<Exercise> filterExercises;
 
@@ -103,7 +103,7 @@ public class WorkoutServiceImpl implements WorkoutService {
         for (int i = 0; i < duration; i += 10) {
             routines.addAll(generateRoutines(filterExercises, type, repetition));
         }
-        return workoutRepository.insert(new Workout(name, routines, pause, workoutType));
+        return workoutRepository.insert(new Workout(name, routines, pause, workoutType, creatorId, new Date()));
 
     }
 
@@ -149,14 +149,14 @@ public class WorkoutServiceImpl implements WorkoutService {
         return workoutRepository.findAll();
     }
 
-	@Override
-	public List<Workout> getAllByType(WorkoutType type) {
-		return workoutRepository.findAllByType(type);
-	}
+    @Override
+    public List<Workout> getAllByType(WorkoutType type) {
+        return workoutRepository.findAllByType(type);
+    }
 
-	@Override
-	public List<WorkoutType> getAllWorkoutTypeList() {
-		return Arrays.asList(WorkoutType.values());
-	}
-    
+    @Override
+    public List<WorkoutType> getAllWorkoutTypeList() {
+        return Arrays.asList(WorkoutType.values());
+    }
+
 }
