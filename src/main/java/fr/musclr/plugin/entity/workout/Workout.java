@@ -1,6 +1,8 @@
 package fr.musclr.plugin.entity.workout;
 
 import fr.musclr.plugin.entity.rating.Rating;
+import fr.musclr.plugin.entity.user.User;
+
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
@@ -22,20 +24,23 @@ public class Workout {
 
     private List<Rating> ratings;
 
-    private String createdBy;
+    private User createdBy;
 
     private Date createdOn;
 
-    public Workout(String name, List<Routine> routines, Integer pause, WorkoutType type, String createdBy, Date createdOn) {
-        this.name = name;
-        this.routines = routines;
-        this.pause = pause;
-        this.type = type;
-        this.createdBy = createdBy;
-        this.createdOn = createdOn;
-    }
+    public Workout( String name, List<Routine> routines, Integer pause, WorkoutType type,
+			List<Rating> ratings, User createdBy, Date createdOn) {
+		super();
+		this.name = name;
+		this.routines = routines;
+		this.pause = pause;
+		this.type = type;
+		this.ratings = ratings;
+		this.createdBy = createdBy;
+		this.createdOn = createdOn;
+	}
 
-    @Override
+	@Override
     public String toString() {
         return "Workout{" +
                 "id='" + id + '\'' +
@@ -97,15 +102,15 @@ public class Workout {
         this.ratings = ratings;
     }
 
-    public String getCreatedBy() {
-        return createdBy;
-    }
+    public User getCreatedBy() {
+		return createdBy;
+	}
 
-    public void setCreatedBy(String createdBy) {
-        this.createdBy = createdBy;
-    }
+	public void setCreatedBy(User createdBy) {
+		this.createdBy = createdBy;
+	}
 
-    public Date getCreatedOn() {
+	public Date getCreatedOn() {
         return createdOn;
     }
 

@@ -4,6 +4,8 @@ import fr.musclr.plugin.entity.exercise.Exercise;
 import fr.musclr.plugin.entity.exercise.ExerciseGroup;
 import fr.musclr.plugin.entity.exercise.ExerciseLevel;
 import fr.musclr.plugin.entity.exercise.ExerciseType;
+import fr.musclr.plugin.entity.rating.Rating;
+import fr.musclr.plugin.entity.user.User;
 import fr.musclr.plugin.entity.workout.Routine;
 import fr.musclr.plugin.entity.workout.Workout;
 import fr.musclr.plugin.entity.workout.WorkoutType;
@@ -23,7 +25,19 @@ public class WorkoutServiceImpl implements WorkoutService {
     private static final int TOTAL_EXERCISES = 8;
     private static final int MAX_REPETITIONS = 15;
     private static final int MAX_PAUSE = 60;
-
+    
+    private User[] users = new User[] {
+    		new User("5af84f93bfc2682f887fb0ee","Julia", "Scarlett.jpg"),
+    		new User("5af8532a08dfd90184cabd24","Roméo", "Chris.jpeg"),
+    		new User("5af8642008dfd90184cabd25","Benedict","Benedict.jpg"),
+    		new User("5af8643808dfd90184cabd26","Elizabeth", "Elizabeth.png"),
+    		new User("5af8645a08dfd90184cabd27","Gwyneth", "Gwyneth.jpg"),
+    		new User("5af8648c08dfd90184cabd28","Karen", "Karen.jpg"),
+    		new User("5af864aa08dfd90184cabd29","Mark", "Mark.jpg"),
+    		new User("5af864cb08dfd90184cabd2a","Robert", "Robert.jpeg"),
+    		new User("5af864e408dfd90184cabd2b","Tom", "Tom.png"),
+    		new User("5af864fe08dfd90184cabd2c","Zoe", "Zoe.jpg")
+    };
 
     @Autowired
     private ExerciseService exerciseService;
@@ -62,12 +76,17 @@ public class WorkoutServiceImpl implements WorkoutService {
         }
 
         int randomPause = random.nextInt(MAX_PAUSE);
+        
+        User user = users[random.nextInt(users.length)];
+        
+        List<Rating> ratings = generateRandomListRatings(random);
+        
         WorkoutType group = WorkoutType.randomWorkoutType();
-        return workoutRepository.insert(new Workout(UUID.randomUUID().toString(), randomRoutines, randomPause, group, UUID.randomUUID().toString(), new Date()));
+        return workoutRepository.insert(new Workout(UUID.randomUUID().toString(), randomRoutines, randomPause, group, ratings, user, new Date()));
     }
 
     @Override
-    public Workout generateWorkout(String creatorId, String name, ExerciseLevel level, int duration, ExerciseType type, boolean equipment, WorkoutType workoutType) {
+    public Workout generateWorkout(User creator, String name, ExerciseLevel level, int duration, ExerciseType type, boolean equipment, WorkoutType workoutType) {
 
         List<Exercise> filterExercises;
 
@@ -103,8 +122,19 @@ public class WorkoutServiceImpl implements WorkoutService {
         for (int i = 0; i < duration; i += 10) {
             routines.addAll(generateRoutines(filterExercises, type, repetition));
         }
-        return workoutRepository.insert(new Workout(name, routines, pause, workoutType, creatorId, new Date()));
+        return workoutRepository.insert(new Workout(name, routines, pause, workoutType, null, creator, new Date()));
 
+    }
+    
+    private List<Rating> generateRandomListRatings(Random random){
+    	List<Rating> ratings = new ArrayList<>();
+    	int randomRatingVotes = random.nextInt(10);
+    	for(int i=0; i<randomRatingVotes; i++) {
+    		User user = users[random.nextInt(users.length)];
+    		Rating rating = new Rating(random.nextInt(4), null, user.getUsername(), null);
+    		ratings.add(rating);
+    	}
+    	return ratings;
     }
 
     private List<Routine> generateRoutines(List<Exercise> exercises, ExerciseType type, int repetition) {

@@ -27,7 +27,7 @@ public class WorkoutController {
 
     @RequestMapping(value = "/generate", method = RequestMethod.POST)
     public Workout generate(@RequestBody WorkoutFormModel formModel) {
-        return workoutService.generateWorkout(formModel.getCreatorId(), formModel.getName(),
+        return workoutService.generateWorkout(formModel.getCreator(), formModel.getName(),
                 formModel.getLevel(), formModel.getDuration(), formModel.getType(),
                 formModel.isEquipment(), formModel.getWorkoutType());
     }

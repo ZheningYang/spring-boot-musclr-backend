@@ -2,11 +2,12 @@ package fr.musclr.plugin.controller;
 
 import fr.musclr.plugin.entity.exercise.ExerciseLevel;
 import fr.musclr.plugin.entity.exercise.ExerciseType;
+import fr.musclr.plugin.entity.user.User;
 import fr.musclr.plugin.entity.workout.WorkoutType;
 
 public class WorkoutFormModel {
 
-    private String creatorId;
+    private User creator;
     private String name;
     private WorkoutType workoutType;
     private ExerciseLevel level;
@@ -14,15 +15,15 @@ public class WorkoutFormModel {
     private ExerciseType type;
     private boolean equipment;
 
-    public String getCreatorId() {
-        return creatorId;
-    }
+    public User getCreator() {
+		return creator;
+	}
 
-    public void setCreatorId(String creatorId) {
-        this.creatorId = creatorId;
-    }
+	public void setCreator(User creator) {
+		this.creator = creator;
+	}
 
-    public String getName() {
+	public String getName() {
         return name;
     }
 
