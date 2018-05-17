@@ -23,38 +23,44 @@ public class Workout {
     private WorkoutType type;
 
     private List<Rating> ratings;
+    
+    private Integer ratingMoy;
 
     private User createdBy;
 
     private Date createdOn;
 
-    public Workout( String name, List<Routine> routines, Integer pause, WorkoutType type,
-			List<Rating> ratings, User createdBy, Date createdOn) {
-		super();
-		this.name = name;
-		this.routines = routines;
-		this.pause = pause;
-		this.type = type;
-		this.ratings = ratings;
-		this.createdBy = createdBy;
-		this.createdOn = createdOn;
+	public Workout(String name, List<Routine> routines, Integer pause, WorkoutType type, List<Rating> ratings,
+		Integer ratingMoy, User createdBy, Date createdOn) {
+	super();
+	this.name = name;
+	this.routines = routines;
+	this.pause = pause;
+	this.type = type;
+	this.ratings = ratings;
+	this.ratingMoy = ratingMoy;
+	this.createdBy = createdBy;
+	this.createdOn = createdOn;
+}
+	
+	
+
+	 @Override
+	 public String toString() {
+	return "Workout{" +
+	"id='" + id + '\'' +
+	", name='" + name + '\'' +
+	", routines=" + routines +
+	", pause=" + pause +
+	", type=" + type +
+	", ratings=" + ratings +
+	", ratingMoy=" + ratingMoy +
+	", createdBy='" + createdBy + '\'' +
+	", createdOn=" + createdOn +
+	'}';
 	}
 
-	@Override
-    public String toString() {
-        return "Workout{" +
-                "id='" + id + '\'' +
-                ", name='" + name + '\'' +
-                ", routines=" + routines +
-                ", pause=" + pause +
-                ", type=" + type +
-                ", ratings=" + ratings +
-                ", createdBy='" + createdBy + '\'' +
-                ", createdOn=" + createdOn +
-                '}';
-    }
-
-    public String getId() {
+	public String getId() {
         return id;
     }
 
@@ -117,4 +123,12 @@ public class Workout {
     public void setCreatedOn(Date createdOn) {
         this.createdOn = createdOn;
     }
+
+	public Integer getRatingMoy() {
+		return ratingMoy;
+	}
+
+	public void setRatingMoy(Integer ratingMoy) {
+		this.ratingMoy = ratingMoy;
+	}  
 }

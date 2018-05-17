@@ -81,8 +81,10 @@ public class WorkoutServiceImpl implements WorkoutService {
         
         List<Rating> ratings = generateRandomListRatings(random);
         
+        Integer ratingMoy = getAverageRating(ratings);
+        
         WorkoutType group = WorkoutType.randomWorkoutType();
-        return workoutRepository.insert(new Workout(UUID.randomUUID().toString(), randomRoutines, randomPause, group, ratings, user, new Date()));
+        return workoutRepository.insert(new Workout(UUID.randomUUID().toString(), randomRoutines, randomPause, group, ratings, ratingMoy, user, new Date()));
     }
 
     @Override
@@ -122,7 +124,7 @@ public class WorkoutServiceImpl implements WorkoutService {
         for (int i = 0; i < duration; i += 10) {
             routines.addAll(generateRoutines(filterExercises, type, repetition));
         }
-        return workoutRepository.insert(new Workout(name, routines, pause, workoutType, null, creator, new Date()));
+        return workoutRepository.insert(new Workout(name, routines, pause, workoutType, null, null, creator, new Date()));
 
     }
     
@@ -131,10 +133,24 @@ public class WorkoutServiceImpl implements WorkoutService {
     	int randomRatingVotes = random.nextInt(10);
     	for(int i=0; i<randomRatingVotes; i++) {
     		User user = users[random.nextInt(users.length)];
-    		Rating rating = new Rating(random.nextInt(4), null, user.getUsername(), null);
+    		Rating rating = new Rating(random.nextInt(5), null, user.getUsername(), null);
     		ratings.add(rating);
     	}
     	return ratings;
+    }
+    
+    private Integer getAverageRating(List<Rating> ratings) {
+    	int ratingMoy = 0;
+    	if(ratings.size() != 0) {
+    		for(Rating rating: ratings) {
+        		ratingMoy += rating.getScore();
+        	}
+        	ratingMoy = ratingMoy/ratings.size();
+        	if(ratingMoy < 5) {
+        		ratingMoy += 1;
+        	}
+    	}
+    	return ratingMoy;
     }
 
     private List<Routine> generateRoutines(List<Exercise> exercises, ExerciseType type, int repetition) {
