@@ -38,6 +38,33 @@ public class WorkoutServiceImpl implements WorkoutService {
     		new User("5af864e408dfd90184cabd2b","Tom", "Tom.png"),
     		new User("5af864fe08dfd90184cabd2c","Zoe", "Zoe.jpg")
     };
+    
+    private String[] workoutsName = new String[] {
+    		"Batman daily workout",
+    		"SuperMan or Girl workout",
+    		"Get as fast as Flash !",
+    		"Wonder Who's that man",
+    		"Swim like Aquaman",
+    		"Become a Cyborg",
+    		"Workout for bat'girls",
+    		"Vibe your muscle",
+    		"Hardcore workout",
+    		"Power your lift",
+    		"StrongLifts 5x5",
+    		"1 Week Cutting Plan",
+    		"Putting on lean muscle",
+    		"Mens fitness",
+    		"6 Days Bulking Split",
+    		"Women's Body Toning",
+    		"Be a beast",
+    		"Hypertrophy week plan",
+    		"Get Fat",
+    		"Get skinny",
+    		"Never get strong",
+    		"Swiss no pain no gain",
+    		"I don't have muscles",
+    		"Armstrong workout"
+    };
 
     @Autowired
     private ExerciseService exerciseService;
@@ -83,8 +110,10 @@ public class WorkoutServiceImpl implements WorkoutService {
         
         Integer ratingMoy = getAverageRating(ratings);
         
+        String workoutName = workoutsName[random.nextInt(workoutsName.length)];
+        
         WorkoutType group = WorkoutType.randomWorkoutType();
-        return workoutRepository.insert(new Workout(UUID.randomUUID().toString(), randomRoutines, randomPause, group, ratings, ratingMoy, user, new Date()));
+        return workoutRepository.insert(new Workout(workoutName, randomRoutines, randomPause, group, ratings, ratingMoy, user, new Date()));
     }
 
     @Override
