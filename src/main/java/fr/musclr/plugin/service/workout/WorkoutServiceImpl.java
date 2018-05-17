@@ -75,14 +75,14 @@ public class WorkoutServiceImpl implements WorkoutService {
     @Autowired
     private WorkoutDao workoutDao;
 
-    @PostConstruct
-    public void initDatabase() {
-        workoutDao.dropCollectionIfExist();
-
-        for (int i = 0; i < 80; i++) {
-            randomizedWorkout();
-        }
-    }
+//    @PostConstruct
+//    public void initDatabase() {
+//        workoutDao.dropCollectionIfExist();
+//
+//        for (int i = 0; i < 80; i++) {
+//            randomizedWorkout();
+//        }
+//    }
 
     @Override
     public Workout randomizedWorkout() {
